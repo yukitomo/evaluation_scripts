@@ -21,5 +21,5 @@ python calc_nll_pr_tprfpr_auc.py ${dirPath}/${fileName}.tsv ${nllPath} ${prPath}
 prgraphPath=${savePath}/pr_curve_${fileName}.png
 tprfprgraphPath=${savePath}/tprfpr_curve_${fileName}.png
 
-python curve_prot.py ${prPath} ${prgraphPath}
-python curve_prot.py ${tprfprPath} ${tprfprgraphPath}
+python curve_plot.py ${prPath} ${prgraphPath}
+python curve_plot.py ${tprfprPath} ${tprfprgraphPath}
