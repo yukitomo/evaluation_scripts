@@ -26,14 +26,18 @@ def load_submission(file_path):
 
 def main():
 	output_file = sys.argv[1]
-	test_results = argv[2:] #複数のプロット用のx,yが格納されたファイル
+	test_results = sys.argv[2:] #複数のプロット用のx,yが格納されたファイル
 	results_lists = []
 
 	for test_result in test_results:
 		y_elements, x_elements = load_submission(test_result)
 		plt.plot(x_elements, y_elements)
-	    plt.show()
-    	plt.savefig(output_file)	
+
+	plt.xlim(0, 1)
+	plt.ylim(0, 1)
+	plt.legend(test_results,'upper right')
+	#plt.show()
+	plt.savefig(output_file)	
 
 
 if __name__ == '__main__':
