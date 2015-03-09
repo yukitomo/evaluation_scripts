@@ -6,6 +6,7 @@
 input : yx_lists (3 or more)
 output : curve.png
 """
+import argparse
 import sys
 import re
 import matplotlib
@@ -25,9 +26,11 @@ def load_submission(file_path):
 	return y_elements, x_elements
 
 
+
 def main():
-	output_file = sys.argv[1]
-	test_results = sys.argv[2:] #複数のプロット用のx,yが格納されたファイル
+	switch = sys.argv[1] #PR or ROC
+	output_file = sys.argv[2]
+	test_results = sys.argv[3:] #複数のプロット用のx,yが格納されたファイル
 	results_lists = []
 	curve_names = []
 
@@ -39,7 +42,23 @@ def main():
 
 	plt.xlim(0, 1)
 	plt.ylim(0, 1)
-	plt.legend(curve_names,'upper right')
+
+	if switch == "PR":
+		loc = 'upper right'
+		title = 'PR curve'
+		y_label = "Precision"
+		x_label = "Recall"
+
+	if switch == "ROC":
+		loc = 'lower right'
+		title = 'ROC curve'
+		y_label = 'True Positive Rate'
+		x_label = 'False Positive Rate'
+
+	plt.title(title)
+	plt.xlabel(x_label)
+	plt.ylabel(y_label)
+	plt.legend(curve_names, loc)
 	#plt.show()
 	plt.savefig(output_file)	
 
