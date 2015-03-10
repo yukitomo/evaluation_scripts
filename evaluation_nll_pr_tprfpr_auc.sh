@@ -18,8 +18,8 @@ tprfprPath=${savePath}/tprfpr_curve_${fileName}.txt
 python calc_nll_pr_tprfpr_auc.py ${dirPath}/${fileName}.tsv ${aucnllPath} ${prPath} ${tprfprPath} #${aucPath}
 
 #png
-#prgraphPath=${savePath}/pr_curve_${fileName}.png
-#tprfprgraphPath=${savePath}/tprfpr_curve_${fileName}.png
+prgraphPath=${savePath}/pr_curve_${fileName}.png
+tprfprgraphPath=${savePath}/tprfpr_curve_${fileName}.png
 
-#python curve_plot.py ${prPath} ${prgraphPath}
-#python curve_plot.py ${tprfprPath} ${tprfprgraphPath}
+python curve_plot.py ${prPath} ${prgraphPath}
+python curve_plot.py ${tprfprPath} ${tprfprgraphPath}
