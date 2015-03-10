@@ -1,6 +1,6 @@
 #!/bin/shape
 #sh evaluation_nll_pr_tprfpr_auc.sh 評価するファイル(拡張子はつけない)　評価するfileの保存場所 　アウトプットの保存先 
-#example : $ sh evaluation_nll_pr_tprfpr_auc.sh from25to27_baseline . output_test
+#example : $ sh evaluation_nll_pr_tprfpr_auc.sh from25to27_baseline .. ../output_test
 
 #evaluationするfile name(拡張子はつけない)
 fileName=$1
