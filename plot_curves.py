@@ -40,8 +40,8 @@ def main():
 		y_elements, x_elements = load_submission(test_result)
 		plt.plot(x_elements, y_elements)
 
-	plt.xlim(0, 1)
-	plt.ylim(0, 1)
+	plt.xlim(0, 0.6)
+	plt.ylim(0, 0.6)
 
 	if switch == "PR":
 		loc = 'upper right'
