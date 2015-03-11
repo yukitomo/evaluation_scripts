@@ -1,20 +1,10 @@
 #!/usr/bin/python
 #-*-coding:utf-8-*-
-#2015-03-06 Yuki Tomo
-#評価手法：negative LogLoss, Precision-Recall(PR)-curve, ROC-curve 
+#評価手法：negative LogLoss, Precision-Recall(PR)-curve, ROC-curve, auPRC, auROC
 
-"""
-calc AUC(FPr_list, TPr_list), nll(labels, probs)
-output ROC(FPr_list, TPr_list), PRC(Recall_list, Precsion_list)   
-"""
-
-import argparse
-import warnings
 import numpy as np
-import pylab as plt
 import sys
 from math import exp,log
-
 
 def auc(x, y, reorder=False):
 
@@ -132,35 +122,28 @@ def load_submission(file_path):
 
 def main():
 	
-	labels_probs_file_path = sys.argv[1]
-	#nll_file_path = sys.argv[2]
-	nll_auc_file_path = sys.argv[2]
-	pr_file_path = sys.argv[3]
-	tpr_fpr_file_path = sys.argv[4]
-	#auc_prc_roc_file_path = sys.argv[5]
+	labels_probs_file_path = sys.argv[1] #input_file : labele, probability 
+	nll_auc_file_path = sys.argv[2] #output_file : nll, nll(P), nll(n), auPRC, auROC 
+	pr_file_path = sys.argv[3] #output_file : PRcurve 
+	tpr_fpr_file_path = sys.argv[4] #output_file : ROCcurve
 
 	labels, probs = load_submission(labels_probs_file_path)
-
-	#calculate Negative Log Likelihood
 	avg_nll_all, avg_nll_pos, avg_nll_neg = calc_nlls(labels, probs)
-	#nll_file = open(nll_file_path,"wb")
-	#nll_file.write('the average negative log likelihood on all samplesis: %f\n'%(avg_nll_all))
-	#nll_file.write('the average negative log likelihood on positive samples is: %f\n'%(avg_nll_pos))
-	#nll_file.write('the average negative log likelihood on negative samples is: %f\n'%(avg_nll_neg))
 	
-	#calculate Precision, Recall, fp_rates, tp_rates　を計算してファイルに書き込み
+	#calculate Precision, Recall, fp_rates, tp_rates
 	recalls, precisions, fp_rates, tp_rates = calc_pr_fprtpr(labels, probs, pr_file_path, tpr_fpr_file_path)
 
 	pr_auc = auc(recalls, precisions, reorder=True)
 	roc_auc = auc(fp_rates, tp_rates, reorder=True)
 
-	#auc_file = open(auc_prc_roc_file_path,"wb")
-	#auc_file.write("pr_auc\t%f\n"%pr_auc)
-	#auc_file.write("roc_auc\t%f\n"%roc_auc)
-
 	nll_auc_file = open(nll_auc_file_path,"wb")
-	nll_auc_file.write("nll\tnll(p)\tnll(n)\tauROC\tauPRC\n")
-	nll_auc_file.write("%f\t%f\t%f\t%f\t%f"%(avg_nll_all, avg_nll_pos, avg_nll_neg, roc_auc, pr_auc))
+	nll_auc_file.write("nll\tnll(p)\tnll(n)\tauROC\tauPRC\n") 
+	nll_auc_file.write("%f\t%f\t%f\t%f\t%f\n"%(avg_nll_all, avg_nll_pos, avg_nll_neg, roc_auc, pr_auc))
+	nll_auc_file.write("\n")
+
+	nll_auc_file.write("avg_nll_all\t%f"%avg_nll_all)
+	nll_auc_file.write("roc_auc\t%f"%roc_auc)
+	nll_auc_file.write("prc_auc\t%f"%prc_auc)
 
 
 if __name__ == '__main__':
