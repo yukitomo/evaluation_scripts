@@ -143,7 +143,7 @@ def main():
 
 	nll_auc_file.write("avg_nll_all\t%f"%avg_nll_all)
 	nll_auc_file.write("roc_auc\t%f"%roc_auc)
-	nll_auc_file.write("prc_auc\t%f"%prc_auc)
+	nll_auc_file.write("prc_auc\t%f"%pr_auc)
 
 
 if __name__ == '__main__':
