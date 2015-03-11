@@ -141,9 +141,9 @@ def main():
 	nll_auc_file.write("%f\t%f\t%f\t%f\t%f\n"%(avg_nll_all, avg_nll_pos, avg_nll_neg, roc_auc, pr_auc))
 	nll_auc_file.write("\n")
 
-	nll_auc_file.write("avg_nll_all\t%f"%avg_nll_all)
-	nll_auc_file.write("roc_auc\t%f"%roc_auc)
-	nll_auc_file.write("prc_auc\t%f"%pr_auc)
+	nll_auc_file.write("%f\tavg_nll_all\n"%avg_nll_all)
+	nll_auc_file.write("%f\troc_auc\n"%roc_auc)
+	nll_auc_file.write("%f\tprc_auc\n"%pr_auc)
 
 
 if __name__ == '__main__':
